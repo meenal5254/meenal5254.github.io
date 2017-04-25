@@ -33,9 +33,9 @@
         ]);
 
         // Set chart options
-        var options = {'title':'Analysis of Reviews For Google + Apple',
-                       'width':700,
-                       'height':300};
+        var options = {'title':'Analysis of Reviews For Google Play + Apple App Store',
+                       'width':900,
+                       'height':500};
 
         // Instantiate and draw our chart, passing in some options.
         var chart = new google.visualization.PieChart(document.getElementById('chart_div_for_all'));
@@ -51,9 +51,9 @@
         ]);
 
         // Set chart options
-        var options = {'title':'Analysis of Reviews For Apple',
-                       'width':700,
-                       'height':300};
+        var options = {'title':'Analysis of Reviews For Apple App Store',
+                       'width':900,
+                       'height':500};
 
         // Instantiate and draw our chart, passing in some options.
         var chart = new google.visualization.PieChart(document.getElementById('chart_div_for_apple'));
@@ -69,9 +69,9 @@
         ]);
 
         // Set chart options
-        var options = {'title':'Analysis of Reviews For Google',
-                       'width':700,
-                       'height':300};
+        var options = {'title':'Analysis of Reviews For Google Play Store',
+                       'width':900,
+                       'height':500};
 
         // Instantiate and draw our chart, passing in some options.
         var chart = new google.visualization.PieChart(document.getElementById('chart_div_for_google'));
@@ -120,21 +120,37 @@ button[link_str] {
    width: 20em;  
    height: 2em;
 }
+
+h1 {
+	display: -webkit-inline-box;
+	padding-left: 100px;
+}
+
+div[id='chart_div_for_apple'] {
+	display: -webkit-inline-box;
+}
+
 </style>
   </head>
   <body>
-    <img src="zoosk_logo.jpg" style="width:200px;height:100px;">
-        <select id ='select'>
+  	<div>
+  	<div>
+    	<img src="zoosk_logo.jpg" style="width:200px;height:100px;">
+    	<h1 align="center"> Zoosk Analyzer </h1> 
+    </div> 
+    <div>   
+    <select id ='select'>
           <option value="all">Both(App Store + Google play)</option>
           <option value="apple">Apple App Store</option>
           <option value="google">Google Play Store</option>
         </select>
         <input type='text' id='link_id' placeholder='Enter your keyword here'>
         <input type='button' id='link_str' value='Search' onClick='link()'>
-
-      <div id="chart_div_for_all"></div>
-      <div id="chart_div_for_apple"></div>
-      <div id="chart_div_for_google"></div>
-    </div>  
+    </div>
+     
+    <div id="chart_div_for_all"></div>
+    <div id="chart_div_for_apple"></div>
+    <div id="chart_div_for_google"></div>
+</div>
   </body>
 </html>

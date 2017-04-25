@@ -41,8 +41,19 @@ tr:nth-child(even) {
 			var myTable= "<table><th>Index</th><th>Title</th><th>Content</th>";
         	for(var i = 0; i < hitsResult.length; i++) {
         		myTable+="<tr><td>" + (i+1) + "</td>";
-    			myTable+="<td>" + hitsResult[i]['_source'].title + "</td>";
-    			myTable+="<td>" + hitsResult[i]['_source'].content + "</td></tr>";
+            var title = "-";
+            var content = "-";
+            if(typeof hitsResult[i]['_source'].title != "undefined") {
+              title = hitsResult[i]['_source'].title;
+            } 
+
+            if(typeof hitsResult[i]['_source'].content != "undefined")  {
+              content = hitsResult[i]['_source'].content;
+            } else if(typeof hitsResult[i]['_source'].comment != "undefined"){
+                content = hitsResult[i]['_source'].comment;
+            }
+    			   myTable+="<td>" + title + "</td>";
+    			   myTable+="<td>" + content + "</td></tr>";
         	}
         	myTable+="</table>";
         	document.write( myTable);
@@ -57,7 +68,7 @@ tr:nth-child(even) {
         	// Apple reviews
         	xmlHttp.open( "GET", "https://search-play-review-s2euwwqqevpg7z3ivnrnunodvq.us-west-2.es.amazonaws.com/" + index + "/_search?q=" + query, false);
         	xmlHttp.send(null);
-
+          alert(xmlHttp.responseText);
         	return JSON.parse(xmlHttp.responseText);
       	} 
   	</script>
