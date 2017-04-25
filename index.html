@@ -14,33 +14,127 @@
       // instantiates the pie chart, passes in the data and
       // draws it.
       function drawChart() {
+        
+        // apple review
+        var complains_apple = callElasticSearch("apple", "awful").hits.total;
+        var complements_apple = callElasticSearch("apple", "good").hits.total;
 
-        // Create the data table.
+        // Google review
+        var complains_google = callElasticSearch("google", "awful").hits.total;
+        var complements_google = callElasticSearch("google", "good").hits.total;
+     
+        // Create the data table for all reviews
         var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Topping');
-        data.addColumn('number', 'Slices');
+        data.addColumn('string', 'Source');
+        data.addColumn('number', 'Reviews');
         data.addRows([
-          ['Mushrooms', 3],
-          ['Onions', 1],
-          ['Olives', 1],
-          ['Zucchini', 1],
-          ['Pepperoni', 2]
+          ['Complains', complains_apple + complains_google],
+          ['Complements', complements_apple + complements_google]
         ]);
 
         // Set chart options
-        var options = {'title':'How Much Pizza I Ate Last Night',
-                       'width':400,
+        var options = {'title':'Analysis of Reviews For Google + Apple',
+                       'width':700,
                        'height':300};
 
         // Instantiate and draw our chart, passing in some options.
-        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div_for_all'));
+        chart.draw(data, options);
+
+        // Create the data table for apple
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Source');
+        data.addColumn('number', 'Reviews');
+        data.addRows([
+          ['Complains', complains_apple],
+          ['Complements', complements_apple]
+        ]);
+
+        // Set chart options
+        var options = {'title':'Analysis of Reviews For Apple',
+                       'width':700,
+                       'height':300};
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div_for_apple'));
+        chart.draw(data, options);
+
+        // Create the data table for reviews in google
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Source');
+        data.addColumn('number', 'Reviews');
+        data.addRows([
+          ['Complains', complains_google],
+          ['Complements', complements_google]
+        ]);
+
+        // Set chart options
+        var options = {'title':'Analysis of Reviews For Google',
+                       'width':700,
+                       'height':300};
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div_for_google'));
         chart.draw(data, options);
       }
-    </script>
-  </head>
 
+      function link() {
+        var b = document.getElementById('link_id').value;
+        var category = document.getElementById('select').value;
+        window.location.href = 'search.html?q='+ b + '&category=' + category;
+      } 
+
+      function callElasticSearch(index, query) {
+        var xmlHttp = new XMLHttpRequest();
+        // Apple reviews
+        xmlHttp.open( "GET", "https://search-play-review-s2euwwqqevpg7z3ivnrnunodvq.us-west-2.es.amazonaws.com/" + index + "/_search?q=" + query + "&analyzer=my_synonyms", false);
+        xmlHttp.send(null);
+        return JSON.parse(xmlHttp.responseText);
+      } 
+    </script>
+    <style> 
+input[type=text] {
+    width: 50%;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: white;
+    background-position: 10px 10px; 
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 40px;
+}
+
+select[id=select] {
+  width: 20%;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+}
+
+div[id='search'] {
+  margin-left: 10px;
+}
+
+button[link_str] {
+   width: 20em;  
+   height: 2em;
+}
+</style>
+  </head>
   <body>
-    <!--Div that will hold the pie chart-->
-    <div id="chart_div"></div>
+    <img src="zoosk_logo.jpg" style="width:200px;height:100px;">
+        <select id ='select'>
+          <option value="all">Both(App Store + Google play)</option>
+          <option value="apple">Apple App Store</option>
+          <option value="google">Google Play Store</option>
+        </select>
+        <input type='text' id='link_id' placeholder='Enter your keyword here'>
+        <input type='button' id='link_str' value='Search' onClick='link()'>
+
+      <div id="chart_div_for_all"></div>
+      <div id="chart_div_for_apple"></div>
+      <div id="chart_div_for_google"></div>
+    </div>  
   </body>
 </html>
