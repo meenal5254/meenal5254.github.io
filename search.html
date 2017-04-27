@@ -32,7 +32,7 @@ tr:nth-child(even) {
         	var paramValue = keyValuePair.replace(/^[^=]*\=/, ""); // some decoding is probably necessary
         	GET[paramName] = paramValue;
        	});
-       	response = callElasticSearch(GET['q'], GET['category'])
+       	response = callElasticSearch(GET['q'], GET['category'], GET['size'])
 
        	if(response.hits.total > 0) {
        		document.getElementById('staticTextId').hidden = true;
@@ -59,14 +59,14 @@ tr:nth-child(even) {
         	document.write( myTable);
         }
 
-       	function callElasticSearch(query, index) {
+       	function callElasticSearch(query, index, size) {
        		if(index == 'all') {
        			index = '';
        		}
 
         	var xmlHttp = new XMLHttpRequest();
         	// Apple reviews
-        	xmlHttp.open( "GET", "https://search-play-review-s2euwwqqevpg7z3ivnrnunodvq.us-west-2.es.amazonaws.com/" + index + "/_search?q=" + query, false);
+        	xmlHttp.open( "GET", "https://search-play-review-s2euwwqqevpg7z3ivnrnunodvq.us-west-2.es.amazonaws.com/" + index + "/_search?q=" + query + "&size=" + size, false);
         	xmlHttp.send(null);
           alert(xmlHttp.responseText);
         	return JSON.parse(xmlHttp.responseText);

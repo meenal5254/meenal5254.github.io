@@ -1,0 +1,100 @@
+input[type=text] {
+  width: 70%;
+  height: 7%;
+  font-size: 16px;
+  background-color: white;
+  text-align: center;
+}
+
+select[id='select'] {
+  width: 20%;
+  height: 7%;
+  background-color: white;
+}
+
+input[id='link_str'] {
+  width: 5%; 
+  height: 7%;
+  background-color: #a6a6a6;
+}
+
+h1 {
+	display: -webkit-inline-box;
+	padding-left: 100px;
+}
+
+div[id='chart_div_for_apple'] {
+	display: -webkit-inline-box;
+}
+
+div[id='header'] {
+  display: -webkit-box;
+  width: 100%;
+}
+
+div[id='title'] {
+  position: absolute;
+  z-index: 15;
+  top: 5%;
+  left: 35%;
+}
+
+div[id='chart'] {
+  float: right;
+  padding-right: 13%;
+  display: -webkit-inline-box;
+  background-color: #ccffff;
+}
+
+div[id='chart_div_for_all'] {
+  padding-top: 0%;
+  border-style: outset;
+}
+
+div[id='chart_div_for_apple'] {
+  padding-top: 0%;
+  border-style: outset;
+}
+
+div[id='chart_div_for_google'] {
+  padding-top: 0%;
+  border-style: outset;
+}
+
+div[id='container'] {
+  margin: 0;
+  padding: 0;
+  background-color: #ccffff;
+  height: 100%;
+  width: 100%;
+}
+
+div[id='search'] {
+  padding-bottom: 1%;
+}
+
+li {
+  text-align: center;
+  border-bottom: 1px solid #555;
+  display: block;
+  color: #000;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+li:hover {
+  background-color: #555;
+  color: white;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 20%;
+  background-color: #ccffff;
+  border: 1px solid #555;
+  height: 100%; /* Full height */
+  position: fixed; /* Make it stick, even on scroll */
+  overflow: auto; /* Enable scrolling if the sidenav has too much content */
+}
