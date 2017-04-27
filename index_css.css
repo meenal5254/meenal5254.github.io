@@ -15,7 +15,9 @@ select[id='select'] {
 input[id='link_str'] {
   width: 5%; 
   height: 7%;
-  background-color: #a6a6a6;
+  background-color: #333300;
+  color: white;
+  font-size: 16px;
 }
 
 h1 {
