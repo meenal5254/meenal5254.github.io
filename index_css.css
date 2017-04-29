@@ -1,3 +1,9 @@
+img[id='logo'] {
+  width:200px;
+  height:100px;
+  background-color: #0000ff;
+}
+
 input[type=text] {
   width: 70%;
   height: 7%;
@@ -42,23 +48,30 @@ div[id='title'] {
 }
 
 div[id='chart'] {
-  float: right;
-  padding-right: 13%;
+  margin-left: 23%;
+  height: 75%;
   display: -webkit-inline-box;
   background-color: #ccffff;
 }
 
+div[id='chart-1'] {
+  height: 100%;
+}  
+
 div[id='chart_div_for_all'] {
+  height: 50%;
   padding-top: 0%;
   border-style: outset;
 }
 
 div[id='chart_div_for_apple'] {
+  height: 50%;
   padding-top: 0%;
   border-style: outset;
 }
 
 div[id='chart_div_for_google'] {
+  height: 100%;
   padding-top: 0%;
   border-style: outset;
 }
@@ -75,6 +88,18 @@ div[id='search'] {
   padding-bottom: 1%;
 }
 
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 20%;
+  background-color: #ccffff;
+  border: 1px solid #555;
+  height: 100%; /* Full height */
+  position: fixed; /* Make it stick, even on scroll */
+  overflow: auto; /* Enable scrolling if the sidenav has too much content */
+}
+
 li {
   text-align: center;
   border-bottom: 1px solid #555;
@@ -87,16 +112,4 @@ li {
 li:hover {
   background-color: #555;
   color: white;
-}
-
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  width: 20%;
-  background-color: #ccffff;
-  border: 1px solid #555;
-  height: 100%; /* Full height */
-  position: fixed; /* Make it stick, even on scroll */
-  overflow: auto; /* Enable scrolling if the sidenav has too much content */
 }

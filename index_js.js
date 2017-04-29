@@ -4,6 +4,10 @@ google.charts.load('current', {'packages':['corechart']});
 // Set a callback to run when the Google Visualization API is loaded.
 google.charts.setOnLoadCallback(drawChart);
 
+$(window).resize(function(){
+  drawChart();
+});
+
 function link() {
   var b = document.getElementById('link_id').value;
   var category = document.getElementById('select').value;

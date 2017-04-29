@@ -1,23 +1,7 @@
 <html>
   <head>
+    <link rel="stylesheet" href="search_css.css">
   	<title> Search Result </title>
-  	<style>
-table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-}
-
-td, th {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
-}
-
-tr:nth-child(even) {
-    background-color: #dddddd;
-}
-</style>
   </head>
   <body>
   	<h3 align="center"> Search Output </h3>
@@ -25,52 +9,50 @@ tr:nth-child(even) {
   	<div id="tablePrint"> </div>
 
   	<script type="text/javascript">
-		var GET = {};
-        var queryString = window.location.search.replace(/^\?/, '');
-        queryString.split(/\&/).forEach(function(keyValuePair) {
-        	var paramName = keyValuePair.replace(/=.*$/, ""); // some decoding is probably necessary
-        	var paramValue = keyValuePair.replace(/^[^=]*\=/, ""); // some decoding is probably necessary
-        	GET[paramName] = paramValue;
-       	});
-       	response = callElasticSearch(GET['q'], GET['category'], GET['size'])
+		  var GET = {};
+      var queryString = window.location.search.replace(/^\?/, '');
+      queryString.split(/\&/).forEach(function(keyValuePair) {
+        var paramName = keyValuePair.replace(/=.*$/, "");
+        var paramValue = keyValuePair.replace(/^[^=]*\=/, "");
+        GET[paramName] = paramValue;
+      });
+      response = callElasticSearch(GET['q'], GET['category'], GET['size'])
 
-       	if(response.hits.total > 0) {
-       		document.getElementById('staticTextId').hidden = true;
-        	var hitsResult = response.hits.hits;
+      if(response.hits.total > 0) {
+       	document.getElementById('staticTextId').hidden = true;
+        var hitsResult = response.hits.hits;
+        var myTable= "<table><th>Index</th><th>Title</th><th>Content</th>";
+        for(var i = 0; i < hitsResult.length; i++) {
+        	myTable+="<tr><td>" + (i+1) + "</td>";
+          var title = "-";
+          var content = "-";
+          if(typeof hitsResult[i]['_source'].title != "undefined") {
+            title = hitsResult[i]['_source'].title;
+          } 
 
-			var myTable= "<table><th>Index</th><th>Title</th><th>Content</th>";
-        	for(var i = 0; i < hitsResult.length; i++) {
-        		myTable+="<tr><td>" + (i+1) + "</td>";
-            var title = "-";
-            var content = "-";
-            if(typeof hitsResult[i]['_source'].title != "undefined") {
-              title = hitsResult[i]['_source'].title;
-            } 
-
-            if(typeof hitsResult[i]['_source'].content != "undefined")  {
-              content = hitsResult[i]['_source'].content;
-            } else if(typeof hitsResult[i]['_source'].comment != "undefined"){
-                content = hitsResult[i]['_source'].comment;
-            }
-    			   myTable+="<td>" + title + "</td>";
-    			   myTable+="<td>" + content + "</td></tr>";
-        	}
-        	myTable+="</table>";
-        	document.write( myTable);
+          if(typeof hitsResult[i]['_source'].content != "undefined")  {
+            content = hitsResult[i]['_source'].content;
+          } else if(typeof hitsResult[i]['_source'].comment != "undefined"){
+            content = hitsResult[i]['_source'].comment;
+          }
+    			
+          myTable+="<td>" + title + "</td>";
+    			myTable+="<td>" + content + "</td></tr>";
         }
+        myTable+="</table>";
+        document.write( myTable);
+      }
 
-       	function callElasticSearch(query, index, size) {
-       		if(index == 'all') {
-       			index = '';
-       		}
+      function callElasticSearch(query, index, size) {
+       	if(index == 'all') {
+       		index = '';
+       	}
 
-        	var xmlHttp = new XMLHttpRequest();
-        	// Apple reviews
-        	xmlHttp.open( "GET", "https://search-play-review-s2euwwqqevpg7z3ivnrnunodvq.us-west-2.es.amazonaws.com/" + index + "/_search?q=" + query + "&size=" + size, false);
-        	xmlHttp.send(null);
-          alert(xmlHttp.responseText);
-        	return JSON.parse(xmlHttp.responseText);
-      	} 
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open( "GET", "https://search-play-review-s2euwwqqevpg7z3ivnrnunodvq.us-west-2.es.amazonaws.com/" + index + "/_search?q=" + query + "&size=" + size, false);
+        xmlHttp.send(null);
+        return JSON.parse(xmlHttp.responseText);
+      } 
   	</script>
   </body>	
 </html>  	
